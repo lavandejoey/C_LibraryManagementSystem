@@ -7,15 +7,15 @@
 #include<windows.h>
 void addBooks(void);//finished
 void adminiMainMenu(void);//finished
-void borrowBooks(void);
+void borrowBooks(void);//finished
 void changeNum(int i);//finished
 void closeApplication(void);//finished
 void deleteBooks(void);//finished
 void editBooks(void);//finished
 void loadingAnim(void);//finished
 void passWord(void);//finished
-void previewPage(void);//finishe
-void returnBooks(void);
+void previewPage(void);//finished
+void returnBooks(void);//finished
 void returnfunc(void);//finished
 void searchBooks(void);//finished
 void searchBookID();//finished
@@ -25,12 +25,12 @@ void viewBooks(void);//finished
 void wrongEnter(int i);//finished
 int getdata(int i);//finished
 int checkid(int t);//finished
-int searchID(int t);
+int searchID(int t);//finished
 void logIn(void);//finished
 void signIn(void);//finished
 void signUp(void);//finished
 void writeUserData(void);//finished
-void viewUsers(void);
+void viewUsers(void);//finished
 int sysFlag = -1;//recognize admini/user
 char catagories[10][15] = { "Computer","Electronics","Electrical","Civil","Mechanical","Architecture", "Art", "Others" };
 char passwordUser[20] = { "000000" };
@@ -52,7 +52,8 @@ FILE* fp, * ft, * fu;//point of file
 COORD coord = { 0, 0 };
 void gotoxy(int x, int y) {
     coord.X = x;
-    coord.Y = y; // X and Y coordinates
+    coord.Y = y; 
+    // X and Y coordinates
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }//光标的初始位置设置
 int main(void) {
@@ -149,13 +150,20 @@ void userMainMenu(void) {
     gotoxy(20, 19); printf(":::::::::::::::::::::::::::::::::::::::::");//菜单栏
     gotoxy(20, 21); printf("Enter your choice:");
     switch (getch()) {
-    case '1': searchBooks(); break;//查找图书页
-    case '2': viewBooks(); break;//查看书目
-    case '3': borrowBooks(); break;//借阅图书
-    case '4': returnBooks(); break;//归还图书
-    case '5': logIn(); break;//登录注册页
-    case '6': passWord(); break;//管理员登陆，密码页
-    case '7': closeApplication(); break;
+    case '1': 
+        searchBooks(); break;//查找图书页
+    case '2': 
+        viewBooks(); break;//查看书目
+    case '3':
+        borrowBooks(); break;//借阅图书
+    case '4': 
+        returnBooks(); break;//归还图书
+    case '5': 
+        logIn(); break;//登录注册页
+    case '6': 
+        passWord(); break;//管理员登陆，密码页
+    case '7': 
+        closeApplication(); break;
     default: {
         wrongEnter(23);
         userMainMenu();
@@ -178,15 +186,24 @@ void adminiMainMenu(void) {
     gotoxy(20, 21); printf(":::::::::::::::::::::::::::::::::::::::::");//菜单栏
     gotoxy(20, 23); printf("Enter your choice:");
     switch (getch()) {
-    case '1': searchBooks(); break;//搜索图书
-    case '2': viewBooks(); break;//查看书目
-    case '3': addBooks(); break;//添加图书
-    case '4': editBooks(); break;//编辑图书
-    case '5': deleteBooks(); break;
-    case '6': viewUsers(); break;//查看用户列表
-    case '7': logIn(); break;//登陆注册页
-    case '8': closeApplication(); break;
-    default: wrongEnter(25);
+    case '1': 
+        searchBooks(); break;//搜索图书
+    case '2': 
+        viewBooks(); break;//查看书目
+    case '3': 
+        addBooks(); break;//添加图书
+    case '4': 
+        editBooks(); break;//编辑图书
+    case '5': 
+        deleteBooks(); break;
+    case '6': 
+        viewUsers(); break;//查看用户列表
+    case '7': 
+        logIn(); break;//登陆注册页
+    case '8': 
+        closeApplication(); break;
+    default: 
+        wrongEnter(25);
         adminiMainMenu();
     }
 } //管理员菜单页
@@ -279,8 +296,12 @@ void searchBooks() {
     fp = fopen("lib.dat", "rb+"); //打开文件，只读模式
     rewind(fp);//从头开始读取文件数据
     switch (getch()) {//选择查询模式
-    case '1': searchBookID(); break;
-    case '2': searchBookName(); break;
+    case '1': 
+        searchBookID(); 
+        break;
+    case '2': 
+        searchBookName(); 
+        break;
     default:
         wrongEnter(11);
         searchBooks();
@@ -528,10 +549,18 @@ void borrowBooks() {
         gotoxy(21, 8); printf("Not included in the library.");
         gotoxy(21, 9); printf("Want to borrow other books? (Y/N):");
         switch (getchar()) {
-        case'y': borrowBooks(); break;
-        case 'Y': borrowBooks(); break;
-        case 'N': userMainMenu(); break;
-        case 'n': userMainMenu(); break;
+        case'y': 
+            borrowBooks();
+            break;
+        case 'Y':
+            borrowBooks();
+            break;
+        case 'N': 
+            userMainMenu();
+            break;
+        case 'n': 
+            userMainMenu();
+            break;
         }
     }
     else if (existLabel == 0) {
@@ -539,34 +568,55 @@ void borrowBooks() {
             gotoxy(21, 8); printf("There are no books left in the library.");
             gotoxy(21, 9); printf("Want to borrow other books? (Y/N):");
             switch (getchar()) {
-            case 'y': borrowBooks(); break;
-            case 'Y': borrowBooks(); break;
-            case 'N': userMainMenu(); break;
-            case 'n': userMainMenu(); break;
+            case 'y': 
+                borrowBooks();
+                break;
+            case 'Y':
+                borrowBooks(); 
+                break;
+            case 'N': 
+                userMainMenu(); 
+                break;
+            case 'n': 
+                userMainMenu();
+                break;
             }
         }
         else {
             gotoxy(21, 8); printf("The book is available!");
             gotoxy(21, 9); printf("Confirm to rent? (Y/N):");
         a:          switch (getchar()) {
-        case'y': gotoxy(21, 10); printf("Book rental success!");
+        case'y':
+            gotoxy(21, 10); printf("Book rental success!");
             changeNum(-1);//qty减少函数
             break;
         case 'Y':
             gotoxy(21, 11); printf("Book rental success!");
             changeNum(-1);//qty减少函数
             break;
-        case 'N': break;
-        case 'n': break;
-        default: goto a;
+        case 'N':
+            break;
+        case 'n':
+            break;
+        default:
+            goto a;
         }
-        }getchar();
+        }
+        getchar();
         gotoxy(21, 12); printf("Want to borrow other books? (Y/N):");
         switch (getchar()) {
-        case 'y': borrowBooks(); break;
-        case 'Y': borrowBooks(); break;
-        case 'N': userMainMenu(); break;
-        case 'n': userMainMenu(); break;
+        case 'y': 
+            borrowBooks();
+            break;
+        case 'Y': 
+            borrowBooks();
+            break;
+        case 'N': 
+            userMainMenu();
+            break;
+        case 'n': 
+            userMainMenu(); 
+            break;
         }
     }
 }
@@ -588,10 +638,18 @@ void returnBooks() {
         gotoxy(21, 8); printf("The book does not belong to the library.");
         gotoxy(21, 9); printf("Want to return other books? (Y/N):");
         switch (getchar()) {
-        case'y': returnBooks(); break;
-        case 'Y': returnBooks(); break;
-        case 'N': userMainMenu(); break;
-        case 'n': userMainMenu(); break;
+        case'y': 
+            returnBooks(); 
+            break;
+        case 'Y': 
+            returnBooks(); 
+            break;
+        case 'N': 
+            userMainMenu(); 
+            break;
+        case 'n': 
+            userMainMenu(); 
+            break;
         }
     }
     if (existLabel == 0) {
@@ -605,18 +663,30 @@ void returnBooks() {
             gotoxy(21, 11); printf("Successfully returned!");
             changeNum(1);//qty增加函数
             break;
-        case 'N': break;
-        case 'n': break;
-        default: break;
+        case 'N': 
+            break;
+        case 'n': 
+            break;
+        default: 
+            break;
         }
         getchar();
         gotoxy(21, 12); printf("Want to return other books? (Y/N):");
         switch (getchar()) {
-        case 'y': returnBooks(); break;
-        case 'Y': returnBooks(); break;
-        case 'N': userMainMenu(); break;
-        case 'n': userMainMenu(); break;
-        default: userMainMenu();
+        case 'y': 
+            returnBooks(); 
+            break;
+        case 'Y': 
+            returnBooks(); 
+            break;
+        case 'N': 
+            userMainMenu(); 
+            break;
+        case 'n': 
+            userMainMenu(); 
+            break;
+        default: 
+            userMainMenu();
         }
     }
 }
@@ -674,7 +744,8 @@ void closeApplication(void) {
     gotoxy(20, 11); printf(":::::::::::::::::::::::::::::::::::::::");
     gotoxy(20, 13); printf(":::::::::::::::::::::::::::::::::::::::");
     gotoxy(20, 15); printf("Exiting in 3 second...........>");
-    Sleep(3000); exit(0);
+    Sleep(3000); 
+    exit(0);
 }
 void wrongEnter(int i) {
     gotoxy(10, i); printf("\aWrong Entry!!Please re-entered correct option");
@@ -691,10 +762,18 @@ a:  system("cls");//清屏
     gotoxy(20, 14); printf(":::::::::::::::::::::::::::::::::::::::::");//菜单栏
     gotoxy(20, 16); printf("Enter your choice:");
     switch (getch()) {
-    case'1':signIn(); break;
-    case'2':signUp(); break;
-    case'3':passWord(); break;
-    default:wrongEnter(18); goto a;
+    case'1':
+        signIn(); 
+        break;
+    case'2':
+        signUp(); 
+        break;
+    case'3':
+        passWord(); 
+        break;
+    default:
+        wrongEnter(18); 
+        goto a;
     }
 }
 void signUp() {
@@ -816,9 +895,12 @@ void viewUsers(void) { //显示全部用户
         gotoxy(15, j); printf("%s", user.unserName);
         gotoxy(37, j); printf("%s", user.pwd);
         gotoxy(65, j); printf("%d", user.borrowedBookNum);
-        printf("\n\n"); i++; j++;
+        printf("\n\n"); 
+        i++; j++;
     }
     gotoxy(3, 25); printf("Total Users =%d", i);
-    fclose(fu); gotoxy(35, 25); returnfunc();
+    fclose(fu); 
+    gotoxy(35, 25); 
+    returnfunc();
 }
 //程序结束
