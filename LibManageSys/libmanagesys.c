@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS//¹ß×ÅvsµÄÆæ¹ÖÊôĞÔ
 #include<conio.h>
 #include<ctype.h>
 #include<dos.h>
@@ -33,11 +32,11 @@ char catagories[N][15] = { "Computer","Electronics","Electrical","Civil","Mechan
 char passwordUser[20] = { "000000" };
 char passwordAdmini[20] = { "123456" };
 struct books {
-    char catag[15];//Í¼Êé·ÖÀàµÄµØÖ·
-    int bookID;//Í¼Êé±àºÅ
-    char bookName[20];//Í¼ÊéÃû
-    char authorName[20];//×÷ÕßÃû
-    int quantity;//ÊıÁ¿
+    char catag[15];//å›¾ä¹¦åˆ†ç±»çš„åœ°å€
+    int bookID;//å›¾ä¹¦ç¼–å·
+    char bookName[20];//å›¾ä¹¦å
+    char authorName[20];//ä½œè€…å
+    int quantity;//æ•°é‡
 }book;
 FILE* fp, * ft, * fs;
 COORD coord = { 0, 0 };
@@ -45,14 +44,14 @@ void gotoxy(int x, int y) {
     coord.X = x;
     coord.Y = y; // X and Y coordinates
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}//printµÄ³õÊ¼Î»ÖÃÉèÖÃ
+}//printçš„åˆå§‹ä½ç½®è®¾ç½®
 int main(void) {
     previewPage();
     getchar();
     return 0;
-}//Ö÷º¯Êı£¨¿´ÆğÀ´ºÃ¼òÂª£©
+}//ä¸»å‡½æ•°ï¼ˆçœ‹èµ·æ¥å¥½ç®€é™‹ï¼‰
 void previewPage(void) {
-    system("cls");//ÇåÆÁ
+    system("cls");//æ¸…å±
     char start[] = "Welcome for Using ECUST Library Management System";
     gotoxy(10, 10);
     for (int i = 0; i < 15; i++) {
@@ -63,9 +62,9 @@ void previewPage(void) {
     }
     for (int i = 0; i < 15; i++) {
         Sleep(50); printf(":");
-    }//Êä³ö»¶Ó­Óï
+    }//è¾“å‡ºæ¬¢è¿è¯­
     Sleep(1000);
-    passWord();//ÊäÈëÏµÍ³ÃÜÂë½çÃæ
+    passWord();//è¾“å…¥ç³»ç»Ÿå¯†ç ç•Œé¢
 }
 void loadingAnim() {
     for (int i = 0; i < 1; i++) {
@@ -73,10 +72,10 @@ void loadingAnim() {
         char w[] = "LOADING........";
         for (int loader = 0; loader < 10; loader++) {
             Sleep(100); printf("%c", w[loader]);
-        }//ÎÄ×Ö¹ö¶¯
+        }//æ–‡å­—æ»šåŠ¨
         Sleep(50);
     }
-}//¼ÓÔØÒ³Ãæ
+}//åŠ è½½é¡µé¢
 void passWord(void) {
     system("cls");
     char d[25] = "Enter The System Password";
@@ -93,8 +92,8 @@ void passWord(void) {
     for (j = 0; j < 16; j++) {
         Sleep(50);
         printf(":");
-    }//Êä³ö±êÌâ
-    gotoxy(15, 7); printf("Enter Password:");//Êä³öÌáÊ¾Óï
+    }//è¾“å‡ºæ ‡é¢˜
+    gotoxy(15, 7); printf("Enter Password:");//è¾“å‡ºæç¤ºè¯­
     while (ch != 13) {
         ch = getch();
         if (ch >= 32 && ch <= 126) {
@@ -102,27 +101,27 @@ void passWord(void) {
             pass[i] = ch;
             i++;
         }
-    }//ÊäÈëÃÜÂë£¬´æ´¢
+    }//è¾“å…¥å¯†ç ï¼Œå­˜å‚¨
     pass[i] = '\0';
-    if (strcmp(pass, passwordUser) == 0) {//ÃÜÂë±È¶Ô£¬ÓÃ»§¶Ë
+    if (strcmp(pass, passwordUser) == 0) {//å¯†ç æ¯”å¯¹ï¼Œç”¨æˆ·ç«¯
         gotoxy(15, 9); printf("Now You Are Logged In!");
         gotoxy(17, 10); printf("===>Press any key to countinue...");
-        getch(); userMainMenu();//½øÈëÓÃ»§¶Ë£¡£¡£¡´Ë´¦´ı²åÈëÓÃ»§¶ËµÇÂ¼×¢²áÒ³
-    }//ÓÃ»§ÏµÍ³
-    else if (strcmp(pass, passwordAdmini) == 0) {//ÃÜÂë±È¶Ô£¬¹ÜÀí¶Ë
+        getch(); userMainMenu();//è¿›å…¥ç”¨æˆ·ç«¯ï¼ï¼ï¼æ­¤å¤„å¾…æ’å…¥ç”¨æˆ·ç«¯ç™»å½•æ³¨å†Œé¡µ
+    }//ç”¨æˆ·ç³»ç»Ÿ
+    else if (strcmp(pass, passwordAdmini) == 0) {//å¯†ç æ¯”å¯¹ï¼Œç®¡ç†ç«¯
         gotoxy(15, 9); printf("Now You Are Logged In (Administration Mode)!");
         gotoxy(17, 10); printf("\n===>Press any key to countinue...");
         getch(); adminiMainMenu();
-    }//¹ÜÀíÔ±ÏµÍ³
+    }//ç®¡ç†å‘˜ç³»ç»Ÿ
     else {
         gotoxy(15, 16); printf("\aWarning!!! Incorrect Password!");
-        getch(); passWord();//ÖØĞÂÊäÈë
-    }//ÃÜÂë´íÎó
-}//µÇÂ½½çÃæ
+        getch(); passWord();//é‡æ–°è¾“å…¥
+    }//å¯†ç é”™è¯¯
+}//ç™»é™†ç•Œé¢
 void userMainMenu(void) {
-    flag = 0;//±ê¼ÇÎªÓÃ»§¶Ë
-    loadingAnim();//¼ÓÔØÒ³Ãæ
-    system("cls");//ÇåÆÁ
+    flag = 0;//æ ‡è®°ä¸ºç”¨æˆ·ç«¯
+    loadingAnim();//åŠ è½½é¡µé¢
+    system("cls");//æ¸…å±
     gotoxy(20, 3); printf("::::::: LIBRARY MANAGEMENT SYSTEM :::::::");
     gotoxy(25, 5); printf("1==> Search Books");
     gotoxy(25, 7); printf("2==> View Books List");
@@ -130,15 +129,15 @@ void userMainMenu(void) {
     gotoxy(25, 11); printf("4==> Return Books");
     gotoxy(25, 13); printf("5==> Log Out");
     gotoxy(25, 15); printf("6==> Administrator Login");
-    gotoxy(20, 17); printf(":::::::::::::::::::::::::::::::::::::::::");//²Ëµ¥À¸
+    gotoxy(20, 17); printf(":::::::::::::::::::::::::::::::::::::::::");//èœå•æ 
     gotoxy(20, 19); printf("Enter your choice:");
     switch (getch()) {
-    case '1': searchBooks(); break;//²éÕÒÍ¼ÊéÒ³
-    case '2': viewBooks(); break;//²é¿´ÊéÄ¿
-    case '3': borrowBooks(); break;//½èÔÄÍ¼Êé
-    case '4': returnBooks(); break;//¹é»¹Í¼Êé
-    case '5': passWord(); break;//ÍË³öµÇÂ¼£¡£¡£¡´Ë´¦´ı²åÈëµÇÂ¼×¢²áÒ³
-    case '6': passWord(); break;//¹ÜÀíÔ±µÇÂ½£¬ÃÜÂëÒ³
+    case '1': searchBooks(); break;//æŸ¥æ‰¾å›¾ä¹¦é¡µ
+    case '2': viewBooks(); break;//æŸ¥çœ‹ä¹¦ç›®
+    case '3': borrowBooks(); break;//å€Ÿé˜…å›¾ä¹¦
+    case '4': returnBooks(); break;//å½’è¿˜å›¾ä¹¦
+    case '5': passWord(); break;//é€€å‡ºç™»å½•ï¼ï¼ï¼æ­¤å¤„å¾…æ’å…¥ç™»å½•æ³¨å†Œé¡µ
+    case '6': passWord(); break;//ç®¡ç†å‘˜ç™»é™†ï¼Œå¯†ç é¡µ
     default: {
         wrongEnter(23);
         if (getch()) {
@@ -146,11 +145,11 @@ void userMainMenu(void) {
         }
     }
     }
-}//ÓÃ»§²Ëµ¥Ò³
+}//ç”¨æˆ·èœå•é¡µ
 void adminiMainMenu(void) {
-    flag = 1;//±ê¼ÇÎª¹ÜÀí¶Ë
-    loadingAnim();//¼ÓÔØÒ³Ãæ
-    system("cls");//ÇåÆÁ
+    flag = 1;//æ ‡è®°ä¸ºç®¡ç†ç«¯
+    loadingAnim();//åŠ è½½é¡µé¢
+    system("cls");//æ¸…å±
     gotoxy(20, 3); printf(":: LIBRARY MANAGEMENT BACKSTAGE SYSTEM ::");
     gotoxy(25, 5); printf("1==> Search Books");
     gotoxy(25, 7); printf("2==> View Books List");
@@ -161,24 +160,24 @@ void adminiMainMenu(void) {
     gotoxy(25, 17); printf("7==> View Users List");
     gotoxy(25, 19); printf("8==> User System");
     gotoxy(25, 21); printf("9==> Close the Application");
-    gotoxy(20, 23); printf(":::::::::::::::::::::::::::::::::::::::::");//²Ëµ¥À¸
+    gotoxy(20, 23); printf(":::::::::::::::::::::::::::::::::::::::::");//èœå•æ 
     gotoxy(20, 25); printf("Enter your choice:");
     switch (getch()) {
-    case '1': searchBooks(); break;//ËÑË÷Í¼Êé
-    case '2': viewBooks(); break;//²é¿´ÊéÄ¿
-    case '3': addBooks(); break;//Ìí¼ÓÍ¼Êé
-    case '4': editBooks(); break;//±à¼­Í¼Êé
+    case '1': searchBooks(); break;//æœç´¢å›¾ä¹¦
+    case '2': viewBooks(); break;//æŸ¥çœ‹ä¹¦ç›®
+    case '3': addBooks(); break;//æ·»åŠ å›¾ä¹¦
+    case '4': editBooks(); break;//ç¼–è¾‘å›¾ä¹¦
     case '5': deleteBooks(); break;
-    case '6': break;//ËÑË÷ÓÃ»§
-    case '7': break;//²é¿´ÓÃ»§ÁĞ±í
-    case '8': userMainMenu(); break;//ÓÃ»§¶Ë£¡£¡£¡´ı²åÈëµÇÂ½×¢²áÒ³
+    case '6': break;//æœç´¢ç”¨æˆ·
+    case '7': break;//æŸ¥çœ‹ç”¨æˆ·åˆ—è¡¨
+    case '8': userMainMenu(); break;//ç”¨æˆ·ç«¯ï¼ï¼ï¼å¾…æ’å…¥ç™»é™†æ³¨å†Œé¡µ
     case '9': closeApplication(); break;
     default: wrongEnter(25);
         if (getch()){
             adminiMainMenu();
     }
     }
-} //¹ÜÀíÔ±²Ëµ¥Ò³
+} //ç®¡ç†å‘˜èœå•é¡µ
 void addBooks(void) {
     loadingAnim(); system("cls");
     int i;
@@ -201,19 +200,19 @@ void addBooks(void) {
     }
     strcpy(book.catag, catagories[i - 1]);
     fp = fopen("lib.dat", "ab+");
-    if (getdata(i) == 1) {//³É¹¦ÊäÈëÊı¾İ
-        fseek(fp, 0, SEEK_END);//ÎÄ¼şÄ©Î²×·¼ÓÍ¼ÊéÊı¾İ
+    if (getdata(i) == 1) {//æˆåŠŸè¾“å…¥æ•°æ®
+        fseek(fp, 0, SEEK_END);//æ–‡ä»¶æœ«å°¾è¿½åŠ å›¾ä¹¦æ•°æ®
         fwrite(&book, sizeof(book), 1, fp); fclose(fp);
         gotoxy(20, 14); printf("The Record Is Sucessfully Saved");
         gotoxy(20, 15); printf("Do you want to save more?(Y / N):");
-        if (getch() == 'n' || getch() == 'N')//½áÊøÔö¼ÓÍ¼Êé
+        if (getch() == 'n' || getch() == 'N')//ç»“æŸå¢åŠ å›¾ä¹¦
             adminiMainMenu();
         else
             system("cls");
         addBooks();
     }
-    else addBooks();//ÊäÈëÊı¾İ´íÎó
-}//Ôö¼ÓÍ¼Êé
+    else addBooks();//è¾“å…¥æ•°æ®é”™è¯¯
+}//å¢åŠ å›¾ä¹¦
 int getdata(int i) {
     int t;
     gotoxy(20, 3); printf("Enter the Information Below");
@@ -227,8 +226,8 @@ int getdata(int i) {
     gotoxy(22, 5); printf("Category:");
     gotoxy(33, 5); printf("%s", book.catag);
     gotoxy(22, 6); printf("Book ID:\t");
-    gotoxy(33, 6); scanf("%d", &t);//´òÓ¡ÊäÈë½çÃæ
-    if (checkid(t) == 0) {//IDÃ»ÓĞÖØ¸´
+    gotoxy(33, 6); scanf("%d", &t);//æ‰“å°è¾“å…¥ç•Œé¢
+    if (checkid(t) == 0) {//IDæ²¡æœ‰é‡å¤
         gotoxy(22, 13); printf("\aThe book id already existed\a");
         getch(); adminiMainMenu();
         return 0;
@@ -243,22 +242,22 @@ int getdata(int i) {
     return 1;
 }
 int checkid(int t) {
-    rewind(fp);//´ÓÎÄ¼şÍ·¿ªÊ¼ËÑË÷
+    rewind(fp);//ä»æ–‡ä»¶å¤´å¼€å§‹æœç´¢
     while (fread(&book, sizeof(book), 1, fp) == 1) {
         if (book.bookID == t)
-            return 0; //·µ»Ø0±íÊ¾´æÔÚ
+            return 0; //è¿”å›0è¡¨ç¤ºå­˜åœ¨
     }
-    return 1; //·µ»Ø1±íÊ¾²»´æÔÚ
-} //¼ì²éÍ¼ÊéĞòÁĞºÅÊÇ·ñ´æÔÚ
+    return 1; //è¿”å›1è¡¨ç¤ºä¸å­˜åœ¨
+} //æ£€æŸ¥å›¾ä¹¦åºåˆ—å·æ˜¯å¦å­˜åœ¨
 void searchBooks() {
     loadingAnim(); system("cls");
     printf("::::::::::::::::::::::::::::: Search Books :::::::::::::::::::::::::::::");
     gotoxy(25, 3); printf("1=> Search By ID");
     gotoxy(25, 5); printf("2=> Search By Name");
     gotoxy(25, 9); printf("Enter Your Choice");
-    fp = fopen("lib.dat", "rb+"); //´ò¿ªÎÄ¼ş£¬Ö»¶ÁÄ£Ê½
-    rewind(fp);//´ÓÍ·¿ªÊ¼¶ÁÈ¡ÎÄ¼şÊı¾İ
-    switch (getch()) {//Ñ¡Ôñ²éÑ¯Ä£Ê½
+    fp = fopen("lib.dat", "rb+"); //æ‰“å¼€æ–‡ä»¶ï¼Œåªè¯»æ¨¡å¼
+    rewind(fp);//ä»å¤´å¼€å§‹è¯»å–æ–‡ä»¶æ•°æ®
+    switch (getch()) {//é€‰æ‹©æŸ¥è¯¢æ¨¡å¼
     case '1': searchBookID(); break;
     case '2': searchBookName(); break;
     default: wrongEnter(11); searchBooks();
@@ -276,7 +275,7 @@ void searchBookID() {
         printf("%c", search[i]); Sleep(100);
     }
     while (fread(&book, sizeof(book), 1, fp) == 1) {
-        if (book.bookID == id) {//ÕÒµ½¶ÔÓ¦Í¼Êé
+        if (book.bookID == id) {//æ‰¾åˆ°å¯¹åº”å›¾ä¹¦
             Sleep(2);
             gotoxy(25, 7); printf("The Book Is Available");
             gotoxy(25, 8); printf("::::::::::::::::::::::::::::");
@@ -294,7 +293,7 @@ void searchBookID() {
             findbook = 1;
         }
     }
-    if (findbook != 1) {//Ã»ÓĞÕÒµ½¶ÔÓ¦Í¼Êé
+    if (findbook != 1) {//æ²¡æœ‰æ‰¾åˆ°å¯¹åº”å›¾ä¹¦
         gotoxy(20, 8); printf(":::::::::::::::::::");
         gotoxy(20, 9); printf(":");
         gotoxy(38, 9); printf(":");
@@ -362,7 +361,7 @@ void searchBookName() {
         }
     }
 }
-void viewBooks(void) { //ÏÔÊ¾ÍêÕûÊéÄ¿
+void viewBooks(void) { //æ˜¾ç¤ºå®Œæ•´ä¹¦ç›®
     int i = 0, j = 4;
     system("cls");
     gotoxy(1, 1); printf("::::::::::::::::::::::::::::::Book List:::::::::::::::::::::::::::::::");
@@ -464,12 +463,12 @@ void borrowBooks() {
     int n;
     loadingAnim(); system("cls");
     gotoxy(20, 4); printf("::::::::::: BOOK BORROWING ::::::::::::");
-    gotoxy(21, 5); printf("ÄúºÃ£¡ÇëÊäÈëÄúÏë½è³öµÄÊé¼®ºÅ£º"); scanf("%d", &n);
-    gotoxy(21, 6); printf("µ±Ç°¸ÃÊé¼®µÄ×´Ì¬Îª£º");
+    gotoxy(21, 5); printf("æ‚¨å¥½ï¼è¯·è¾“å…¥æ‚¨æƒ³å€Ÿå‡ºçš„ä¹¦ç±å·ï¼š"); scanf("%d", &n);
+    gotoxy(21, 6); printf("å½“å‰è¯¥ä¹¦ç±çš„çŠ¶æ€ä¸ºï¼š");
     int existLabel = searchID(n);
     if (existLabel == 1) {
-        gotoxy(21, 7); printf("¹İÄÚÎ´ÊÕÂ¼¸ÃÍ¼Êé¡£");
-        gotoxy(21, 8); printf("ÊÇ·ñ²éÑ¯ÆäËûÊé¼®£¿(Y/N):");
+        gotoxy(21, 7); printf("é¦†å†…æœªæ”¶å½•è¯¥å›¾ä¹¦ã€‚");
+        gotoxy(21, 8); printf("æ˜¯å¦æŸ¥è¯¢å…¶ä»–ä¹¦ç±ï¼Ÿ(Y/N):");
         switch (getchar()) {
         case'y': borrowBooks(); break;
         case 'Y': borrowBooks(); break;
@@ -479,8 +478,8 @@ void borrowBooks() {
     }
     else if (existLabel == 0) {
         if (book.quantity == 0) {
-            gotoxy(21, 7); printf("¹İÄÚÎŞÊ£Óà£¬Í¼ÊéÍâ½èÖĞ¡£");
-            gotoxy(21, 8); printf("ÊÇ·ñ²éÑ¯ÆäËûÊé¼®£¿(Y/N):");
+            gotoxy(21, 7); printf("é¦†å†…æ— å‰©ä½™ï¼Œå›¾ä¹¦å¤–å€Ÿä¸­ã€‚");
+            gotoxy(21, 8); printf("æ˜¯å¦æŸ¥è¯¢å…¶ä»–ä¹¦ç±ï¼Ÿ(Y/N):");
             switch (getchar()) {
             case 'y': borrowBooks(); break;
             case 'Y': borrowBooks(); break;
@@ -489,22 +488,22 @@ void borrowBooks() {
             }
         }
         else {
-            gotoxy(21, 7); printf("Í¼ÊéÔÚ¹İ£¬¿É×â½è¡£");
-            gotoxy(21, 8); printf("ÊÇ·ñÈ·ÈÏ×â½è£¿(Y/N):");
+            gotoxy(21, 7); printf("å›¾ä¹¦åœ¨é¦†ï¼Œå¯ç§Ÿå€Ÿã€‚");
+            gotoxy(21, 8); printf("æ˜¯å¦ç¡®è®¤ç§Ÿå€Ÿï¼Ÿ(Y/N):");
 a:          switch (getchar()) {
-            case'y': gotoxy(21, 10);printf("×â½è³É¹¦£¡");
-                //qty¼õÉÙº¯Êı
+            case'y': gotoxy(21, 10);printf("ç§Ÿå€ŸæˆåŠŸï¼");
+                //qtyå‡å°‘å‡½æ•°
                 break;
             case 'Y':
-                gotoxy(21, 10); printf("×â½è³É¹¦£¡");
-                //qty¼õÉÙº¯Êı
+                gotoxy(21, 10); printf("ç§Ÿå€ŸæˆåŠŸï¼");
+                //qtyå‡å°‘å‡½æ•°
                 break;
             case 'N': break;
             case 'n': break;
             default: goto a;
             }
         }
-        gotoxy(21, 11); printf("ÊÇ·ñ¼ÌĞø×â½è£¿(Y/N):");
+        gotoxy(21, 11); printf("æ˜¯å¦ç»§ç»­ç§Ÿå€Ÿï¼Ÿ(Y/N):");
         switch (getchar()) {
         case 'y': borrowBooks(); break;
         case 'Y': borrowBooks(); break;
@@ -517,11 +516,11 @@ void returnBooks() {
     int n; char answer;
     loadingAnim(); system("cls");
     gotoxy(20, 4); printf("::::::::::: BOOK RETURNING ::::::::::::");
-    printf("ÄúºÃ£¡ÇëÊäÈëÏëÒª¹é»¹µÄÊé¼®ºÅ£º"); scanf("%d", &n);
+    printf("æ‚¨å¥½ï¼è¯·è¾“å…¥æƒ³è¦å½’è¿˜çš„ä¹¦ç±å·ï¼š"); scanf("%d", &n);
     int existLabel = searchID(n);
     if (existLabel == 1) {
-        gotoxy(21, 7); printf("¹İÄÚÎ´ÊÕÂ¼¸ÃÍ¼Êé¡£");
-        gotoxy(21, 8); printf("ÊÇ·ñ²éÑ¯ÆäËûÊé¼®£¿(Y/N):");
+        gotoxy(21, 7); printf("é¦†å†…æœªæ”¶å½•è¯¥å›¾ä¹¦ã€‚");
+        gotoxy(21, 8); printf("æ˜¯å¦æŸ¥è¯¢å…¶ä»–ä¹¦ç±ï¼Ÿ(Y/N):");
         switch (getchar()) {
         case'y': returnBooks(); break;
         case 'Y': returnBooks(); break;
@@ -530,21 +529,21 @@ void returnBooks() {
         }
     }
     if (existLabel == 0) {
-        gotoxy(21, 7); printf("²éÕÒµ½¸ÃÍ¼Êé¡£");
-        gotoxy(21, 8); printf("È·ÈÏÒª¹é»¹Âğ£¿(Y/N):");
+        gotoxy(21, 7); printf("æŸ¥æ‰¾åˆ°è¯¥å›¾ä¹¦ã€‚");
+        gotoxy(21, 8); printf("ç¡®è®¤è¦å½’è¿˜å—ï¼Ÿ(Y/N):");
         switch (getchar()) {
-        case'y': gotoxy(21, 10); printf("¹é»¹³É¹¦£¡");
-            //qtyÔö¼Óº¯Êı
+        case'y': gotoxy(21, 10); printf("å½’è¿˜æˆåŠŸï¼");
+            //qtyå¢åŠ å‡½æ•°
             break;
         case 'Y':
-            gotoxy(21, 10); printf("¹é»¹³É¹¦£¡");
-            //qtyÔö¼Óº¯Êı
+            gotoxy(21, 10); printf("å½’è¿˜æˆåŠŸï¼");
+            //qtyå¢åŠ å‡½æ•°
             break;
         case 'N': break;
         case 'n': break;
         default: break;
         }
-        gotoxy(21, 11); printf("ÊÇ·ñ¼ÌĞø×â½è£¿(Y/N):");
+        gotoxy(21, 11); printf("æ˜¯å¦ç»§ç»­ç§Ÿå€Ÿï¼Ÿ(Y/N):");
         switch (getchar()) {
         case 'y': returnBooks(); break;
         case 'Y': returnBooks(); break;
@@ -554,13 +553,13 @@ void returnBooks() {
     }
 }
 int searchID(int t) {
-    fp = fopen("lib.dat", "rb+"); rewind(fp);//´ÓÎÄ¼şÍ·¿ªÊ¼ËÑË÷
+    fp = fopen("lib.dat", "rb+"); rewind(fp);//ä»æ–‡ä»¶å¤´å¼€å§‹æœç´¢
     while (fread(&book, sizeof(book), 1, fp) == 1) {
         if (book.bookID == t)
-            return 0; //·µ»Ø0±íÊ¾´æÔÚ
+            return 0; //è¿”å›0è¡¨ç¤ºå­˜åœ¨
     }
-    return 1; //·µ»Ø1±íÊ¾²»´æÔÚ
-} //¼ì²éÍ¼ÊéĞòÁĞºÅÊÇ·ñ´æÔÚ
+    return 1; //è¿”å›1è¡¨ç¤ºä¸å­˜åœ¨
+} //æ£€æŸ¥å›¾ä¹¦åºåˆ—å·æ˜¯å¦å­˜åœ¨
 
 void increaseBooks() {
     
@@ -572,7 +571,7 @@ void decreaseBooks() {
 void returnfunc(void) {
     printf(" Press ENTER to return to main menu");
 a:
-    if (getch() == 13) { //ENTER¼ü·µ»Ø
+    if (getch() == 13) { //ENTERé”®è¿”å›
         if (flag == 0) {
             userMainMenu();
         }
@@ -598,4 +597,4 @@ void wrongEnter(int i) {
     gotoxy(10, i); printf("\aWrong Entry!!Please re-entered correct option");
     getchar();
 }
-//³ÌĞò½áÊø
+//ç¨‹åºç»“æŸ
